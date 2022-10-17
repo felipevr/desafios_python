@@ -2,9 +2,11 @@
 
 import re
 
+def sub(lin):
+    ret = re.sub(r"\s\|\|\s", " or ", re.sub(r"\s&&\s", " and ", lin))
+    return re.sub(r"\s\|\|\s", " or ", re.sub(r"\s&&\s", " and ", ret))
+
 n = int(input().strip())
 for i in range(n):
     line = input()
-    #print (re.sub(r"\s\|\|\s", " or ", re.sub(r"\s&&\s", " and ", line)))
-    #print (re.sub(r" \|\| ", " or ", re.sub(r" && ", " and ", line)))
-    print (re.sub(r"\b\|\|\b", " or ", re.sub(r"\b&&\b", " and ", line)))
+    print (sub(line))
