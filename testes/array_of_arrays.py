@@ -12,26 +12,26 @@
 #      ["2141"]
 #     ]
 
-# obj.elementos {key: value, key: value}
-# obj.elementos = [1, 2, 4]
-
-# estrutura =
-# [
-#     {tamanho: 3, arrays: ['124', "412"], elementos: '124'}, 
-#     
-# ]
-#  i = 1
 
 #classe para criar os agrupamentos
 class Grupo:
     def __init__(self, item):
-        self.tamanho = len(item)
+        self._tamanho = len(item)
         self.arrays = [item]
-        #self.componentes = item
+        self._componentes = sorted(item)
         
     @property
     def componentes(self):
-        return self.arrays[0]
+        return self._componentes
+    
+    #verifica a igualdade entre os elementos do grupo e outra string
+    def __eq__(self, palavra):
+        if (len(palavra) != self._tamanho):
+            return False
+        palavra = sorted(palavra)
+        #se as duas strings ordenadas forem iguais, fazem parte do mesmo grupo
+        return self._componentes == palavra
+    
 
 
 # Complexidade O (n^2 * z^2)
@@ -64,33 +64,14 @@ def verificar_agrupamentos(lista):
 #retorna indice do grupo ou -1 se não encontrou
 def grupo_existente(superarray,item):
     for k in range(len(superarray)):
-        if (superarray[k].tamanho == len(item)):
-            if (mesmo_elementos(superarray[k].componentes, item)):
-                return k
+        #verifica a igualdade do grupo e do novo item
+        if (superarray[k] == item):
+            return k
         
     return -1
     
 
-def mesmo_elementos(elementos, item):
-    verificado = [False]*len(item)
-    i = 0
-
-    # após testar caso 112 x 221 => 
-    for c in item: 
-
-        for e in elementos:
-            if (e == c):
-                verificado[i]=True
-                break
-        i += 1
-        
-    for achou in verificado:
-        if not achou: 
-            return False
-    
-    return True
-
-
-resultado = verificar_agrupamentos(["124", "412", "ab9", "241", "9ba", "abc", "2141"])
+#caso de teste expandido
+resultado = verificar_agrupamentos(["124", "412", "ab9", "241", "9ba", "abc", "2141", '112', '221'])
 
 print(resultado)
