@@ -22,18 +22,19 @@
 # ]
 #  i = 1
 
-class Elemento:
+#classe para criar os agrupamentos
+class Grupo:
     def __init__(self, item):
         self.tamanho = len(item)
         self.arrays = [item]
-        #self.elementos = item
+        #self.componentes = item
         
     @property
     def componentes(self):
         return self.arrays[0]
 
 
-# O (n^2 * z^2)
+# Complexidade O (n^2 * z^2)
 def verificar_agrupamentos(lista):
     estrutura = []
     
@@ -41,17 +42,17 @@ def verificar_agrupamentos(lista):
         return estrutura
 
     #inicializa o primeiro elemento
-    estrutura.append(Elemento(lista[0]))
+    estrutura.append(Grupo(lista[0]))
     
     #percorre restante da lista passada exceto o primeiro
-    # i = 2
-    # j = 0
     for i in range(1,len(lista)):
         j = grupo_existente(estrutura,lista[i])
-        if (j != False):
+        if (j != -1):
+            #se encontrou o grupo, inclui no existente
             estrutura[j].arrays.append(lista[i])
         else:
-            estrutura.append(Elemento(lista[i]))
+            #caso contrário cria um novo grupo
+            estrutura.append(Grupo(lista[i]))
             
     #limpa estrutura
     retorno = []
@@ -60,24 +61,23 @@ def verificar_agrupamentos(lista):
     
     return retorno
 
+#retorna indice do grupo ou -1 se não encontrou
 def grupo_existente(superarray,item):
     for k in range(len(superarray)):
         if (superarray[k].tamanho == len(item)):
             if (mesmo_elementos(superarray[k].componentes, item)):
                 return k
         
-    return False
+    return -1
     
-# elementos = 124
-# item = 412
-# [True, True, True]
+
 def mesmo_elementos(elementos, item):
     verificado = [False]*len(item)
     i = 0
-    # i = 3
-    # c = 2
-    for c in item: # 112 x 221 => 
-        # e = 2
+
+    # após testar caso 112 x 221 => 
+    for c in item: 
+
         for e in elementos:
             if (e == c):
                 verificado[i]=True
