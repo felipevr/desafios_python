@@ -7,8 +7,7 @@ import sys
 
 def multiplo(n):
     soma = 0
-    for i in range(n-1):
-        num = i+1
+    for num in range(1,n):
         if (num % 3 == 0 or num % 5 == 0):
             soma += num
             #print("Numero: {} Soma: {}".format(num, soma))
