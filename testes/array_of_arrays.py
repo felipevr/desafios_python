@@ -54,7 +54,7 @@ def verificar_agrupamentos(lista):
             #caso contrário cria um novo grupo
             estrutura.append(Grupo(lista[i]))
             
-    #limpa estrutura
+    #limpa estrutura (pega apenas os arrays sem sobrecarga)
     retorno = []
     for item in estrutura:
         retorno.append(item.arrays)
